@@ -1,35 +1,22 @@
-//import checkNumInputs from './checkNumInputs';
+import {postData} from '../services/requests';
 
 const forms = () => {
 	const form = document.querySelectorAll('form');
 	const inputs = document.querySelectorAll('input');
 	const upload = document.querySelectorAll('[name = "upload"]');
 
-
-//	checkNumInputs('input[name="user_phone"]');
-
-
 	const message = {
-		loading: 'загрузка...',
-		success: 'спасибо! Свяжемся.',
-		failure: 'упс! Что-то пошло не так...',
+		loading: 'Loading...',
+		success: 'Thank you! We\'ll get in touch.',
+		failure: 'Oops! Something went wrong...',
 		spinner: 'assets/img/spinner.gif',
 		ok: 'assets/img/ok.png',
-		fail: 'assets/img/fail.png'
+		fail: 'assets/img/fail.png',
 	};
-const path = {
+
+	const path = {
 	designer: 'assets/server.php',
 	question: 'assets/question.php'
-}
-
-
-	const postData = async ( url, data ) => {
-		let res = await fetch (url, {
-			method: 'POST',
-			body: data,
-		});
-
-		return await res.text();
 	};
 
 	const clearInputs = () => {
@@ -43,24 +30,21 @@ const path = {
 
 	upload.forEach(item => {
 		item.addEventListener('input', () => {
-			console.log(item.files[0]);
 			let dots;
 			const arr = item.files[0].name.split('.');
-
 			arr [0].length > 6 ? dots ="..." : dots = '.';
-			const name = item.files[0].name.split('.') [0].substring(0, 6) + dots + arr [1];
+			const name = arr [0].substring(0, 6) + dots + arr [1];
 			item.previousElementSibling.textContent = name;
 		});
 	});
 
-	form.forEach(item =>{
+	form.forEach(item => {
 		item.addEventListener('submit', ( e ) => {
 			e.preventDefault();
 
 			let statusMessage = document.createElement('div');
 			statusMessage.classList.add('status');
 			item.parentNode.appendChild(statusMessage);
-
 			item.classList.add('animated', 'fadeOutUp');
 			setTimeout(() => {
 				item.style.display = 'none';
@@ -78,18 +62,18 @@ const path = {
 			const formData = new FormData(item);
 			let api;
 			item.closest('.popup-design') || item.classList.contains('calc_form') ? api = path.designer : api = path.question;
-			console.log(api);
 
 			postData(api, formData)
 			.then(res => {
-				console.log(res);
 				statusImg.setAttribute('src', message.ok);
 				textMessage.textContent = message.success;
 			})
+
 			.catch(() => {
 				statusImg.setAttribute('src',message.fail);
 				textMessage.textContent = message.failure;
 				})
+
 			.finally(() => {
 				clearInputs();
 				setTimeout(() => {
