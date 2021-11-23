@@ -1,27 +1,21 @@
-//import checkNumInputs from './checkNumInputs';
-
 const forms = () => {
 	const form = document.querySelectorAll('form');
 	const inputs = document.querySelectorAll('input');
 	const upload = document.querySelectorAll('[name = "upload"]');
 
-
-//	checkNumInputs('input[name="user_phone"]');
-
-
 	const message = {
-		loading: 'загрузка...',
-		success: 'спасибо! Свяжемся.',
-		failure: 'упс! Что-то пошло не так...',
+		loading: 'Loading...',
+		success: 'Thank you! Contact us.',
+		failure: 'Oops! Something went wrong...',
 		spinner: 'assets/img/spinner.gif',
 		ok: 'assets/img/ok.png',
-		fail: 'assets/img/fail.png'
+		fail: 'assets/img/fail.png',
 	};
-const path = {
-	designer: 'assets/server.php',
-	question: 'assets/question.php'
-}
 
+	const path = {
+		designer: 'assets/server.php',
+		question: 'assets/question.php',
+	};
 
 	const postData = async ( url, data ) => {
 		let res = await fetch (url, {
@@ -36,6 +30,7 @@ const path = {
 		inputs.forEach(item => {
 			item.value = '';
 		});
+
 		upload.forEach(item => {
 			item.previousElementSibling.textContent = "Файл не выбран";
 		});
@@ -43,12 +38,10 @@ const path = {
 
 	upload.forEach(item => {
 		item.addEventListener('input', () => {
-			console.log(item.files[0]);
 			let dots;
 			const arr = item.files[0].name.split('.');
-
 			arr [0].length > 6 ? dots ="..." : dots = '.';
-			const name = item.files[0].name.split('.') [0].substring(0, 6) + dots + arr [1];
+			const name = arr [0].substring(0, 6) + dots + arr [1];
 			item.previousElementSibling.textContent = name;
 		});
 	});
@@ -60,8 +53,8 @@ const path = {
 			let statusMessage = document.createElement('div');
 			statusMessage.classList.add('status');
 			item.parentNode.appendChild(statusMessage);
-
 			item.classList.add('animated', 'fadeOutUp');
+
 			setTimeout(() => {
 				item.style.display = 'none';
 			}, 400);
@@ -78,11 +71,10 @@ const path = {
 			const formData = new FormData(item);
 			let api;
 			item.closest('.popup-design') || item.classList.contains('calc_form') ? api = path.designer : api = path.question;
-			console.log(api);
+
 
 			postData(api, formData)
 			.then(res => {
-				console.log(res);
 				statusImg.setAttribute('src', message.ok);
 				textMessage.textContent = message.success;
 			})
