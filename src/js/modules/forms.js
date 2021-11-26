@@ -81,7 +81,7 @@ const forms = () => {
 			.catch(() => {
 				statusImg.setAttribute('src',message.fail);
 				textMessage.textContent = message.failure;
-				})
+			})
 			.finally(() => {
 				clearInputs();
 				setTimeout(() => {

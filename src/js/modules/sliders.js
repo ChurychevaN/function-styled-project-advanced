@@ -1,6 +1,6 @@
 const sliders = (slides, dir, prev, next) => {
-	let slideIndex = 1,
-		paused = false;
+	let slideIndex = 1;
+	let	paused = false;
 
 	const items = document.querySelectorAll(slides);
 
