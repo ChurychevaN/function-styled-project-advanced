@@ -2,6 +2,7 @@ import modals from './modules/modals';
 import sliders from './modules/sliders';
 import forms from './modules/forms';
 import pictureSize from './modules/pictureSize';
+import accordion from './modules/accordion';
 
 window.addEventListener('DOMContentLoaded',() => {
 	modals();
@@ -9,4 +10,5 @@ window.addEventListener('DOMContentLoaded',() => {
 	sliders('.main-slider-item', 'vertical');
 	forms();
 	pictureSize('.sizes-block');
+	accordion('.accordion-heading');
 });
