@@ -3,6 +3,7 @@ import sliders from './modules/sliders';
 import forms from './modules/forms';
 import pictureSize from './modules/pictureSize';
 import accordion from './modules/accordion';
+import burger from './modules/burger';
 
 window.addEventListener('DOMContentLoaded',() => {
 	modals();
@@ -11,4 +12,5 @@ window.addEventListener('DOMContentLoaded',() => {
 	forms();
 	pictureSize('.sizes-block');
 	accordion('.accordion-heading');
+	burger('.burger-menu', '.burger');
 });
